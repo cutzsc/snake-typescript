@@ -1,27 +1,32 @@
-"use strict";
-var LinearAlgebra;
-(function (LinearAlgebra) {
-    class Vector2 {
-        _x;
-        _y;
-        constructor(x, y) {
-            this._x = x;
-            this._y = y;
-        }
-        get x() {
-            return this._x;
-        }
-        set x(value) {
-            this._x = value;
-        }
-        get y() {
-            return this._y;
-        }
-        set y(value) {
-            this._y = value;
-        }
-        length() {
-            return Math.sqrt(this._x * this._x + this._y * this._y);
-        }
+/* eslint-disable @typescript-eslint/no-unused-vars */
+export class Vector2 {
+    x;
+    y;
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
     }
-})(LinearAlgebra || (LinearAlgebra = {}));
+    length() {
+        return Math.sqrt(this.x * this.x + this.y * this.y);
+    }
+    add(vec) {
+        this.x = vec.x;
+        this.y = vec.y;
+    }
+    compare(other) {
+        return this.x == other.x &&
+            this.y == other.y;
+    }
+}
+export class Rect {
+    x;
+    y;
+    width;
+    height;
+    constructor(x, y, width, height) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+    }
+}

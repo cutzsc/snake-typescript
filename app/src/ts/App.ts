@@ -1,28 +1,11 @@
-namespace App {
-	interface GameBehavior {
-		update(deltaTime: number): void,
-		draw(ctx: CanvasRenderingContext2D): void
-	}
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
-	interface ClientBounds {
-		width: number,
-		height: number
-	}
-	
-	const canvas = document.getElementById("game") as HTMLCanvasElement;
-	const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+import { Game } from "./GameBehaviour.js";
+import { Rect } from "./LinearAlgebra.js";
+import { SnakeGame } from "./SnakeGame.js";
 
-	const clientBounds: ClientBounds = {
-		width: 500,
-		height: 400
-	};
-	
-	canvas.width = clientBounds.width;
-	canvas.height = clientBounds.height;
 
-	
-	const game: GameBehavior | null = null;
+const canvas = document.getElementById("game") as HTMLCanvasElement;
+const clientBounds: Rect = new Rect(0, 0, 500, 400);
 
-	game!.update(1);
-	game!.draw(ctx);
-}
+const game: Game = (new SnakeGame(canvas, clientBounds)).build().run();
