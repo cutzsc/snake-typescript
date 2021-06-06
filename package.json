@@ -17,6 +17,9 @@
   },
   "homepage": "https://github.com/cutzsc/snake-typescript#readme",
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.26.0",
+    "@typescript-eslint/parser": "^4.26.0",
+    "eslint": "^7.28.0",
     "typescript": "^4.3.2"
   }
 }
