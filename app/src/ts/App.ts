@@ -2,10 +2,10 @@
 
 import { Game } from "./GameBehaviour.js";
 import { Rect } from "./LinearAlgebra.js";
-import { SnakeGame } from "./SnakeGame.js";
+import { SnakeGame } from "./Snake/SnakeGame.js";
 
 
 const canvas = document.getElementById("game") as HTMLCanvasElement;
 const clientBounds: Rect = new Rect(0, 0, 500, 400);
 
-const game: Game = (new SnakeGame(canvas, clientBounds)).build().run();
+const game: Game = new SnakeGame(canvas, clientBounds).build().run();

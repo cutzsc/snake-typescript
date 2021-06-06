@@ -9,9 +9,9 @@ export class Vector2 {
     length() {
         return Math.sqrt(this.x * this.x + this.y * this.y);
     }
-    add(vec) {
-        this.x = vec.x;
-        this.y = vec.y;
+    add(other) {
+        this.x = other.x;
+        this.y = other.y;
     }
     compare(other) {
         return this.x == other.x &&
