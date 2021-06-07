@@ -28,6 +28,26 @@ export class Vector2 {
 		return	this.x == other.x &&
 				this.y == other.y;
 	}
+
+	public static zero(): Vector2 {
+		return new Vector2(0, 0);
+	}
+
+	public static up(): Vector2 {
+		return new Vector2(0, -1);
+	}
+
+	public static down(): Vector2 {
+		return new Vector2(0, 1);
+	}
+
+	public static left(): Vector2 {
+		return new Vector2(-1, 0);
+	}
+
+	public static right(): Vector2 {
+		return new Vector2(1, 0);
+	}
 }
 
 export class Rect {

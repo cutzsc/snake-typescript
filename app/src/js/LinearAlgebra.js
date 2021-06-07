@@ -23,6 +23,21 @@ export class Vector2 {
         return this.x == other.x &&
             this.y == other.y;
     }
+    static zero() {
+        return new Vector2(0, 0);
+    }
+    static up() {
+        return new Vector2(0, -1);
+    }
+    static down() {
+        return new Vector2(0, 1);
+    }
+    static left() {
+        return new Vector2(-1, 0);
+    }
+    static right() {
+        return new Vector2(1, 0);
+    }
 }
 export class Rect {
     x;

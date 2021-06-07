@@ -3,7 +3,7 @@ import { Entity } from "./Entity.js";
 import { LevelInfo } from "./Level.js";
 
 export class Snake extends Entity {
-	private body: Array<Rect> = [];
+	private body: Rect[] = [];
 	private elapsedSinceLastMove!: number;
 	private cellSize!: Vector2;
 	private snakeBodyPadding!: Vector2;
