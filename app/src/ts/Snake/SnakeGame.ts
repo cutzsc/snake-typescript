@@ -10,6 +10,7 @@ import { Food } from "./Food.js";
 
 export class SnakeGame extends Game {
 	private entities: Entity[] = [];
+	private restartPressed!: boolean;
 
 	protected loadContent(): void {
 		const snake = new Snake();
@@ -21,6 +22,8 @@ export class SnakeGame extends Game {
 	}
 
 	protected initialize(): void {
+		this.restartPressed = false;
+		
 		for (let i = 0; i < this.entities.length; i++) {
 			this.entities[i].initilize();
 		}
@@ -30,6 +33,11 @@ export class SnakeGame extends Game {
 		for (let i = 0; i < this.entities.length; i++) {
 			this.entities[i].update(deltaTime);
 		}
+
+		if (this.restartPressed && !input.restart) {
+			this.restart();
+		}
+		this.restartPressed = input.restart;
 	}
 
 	protected draw(ctx: CanvasRenderingContext2D): void {

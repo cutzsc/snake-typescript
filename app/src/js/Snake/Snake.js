@@ -77,13 +77,13 @@ export class Snake extends Entity {
         }
     }
     checkCollision() {
-        if (this.body[0].x > LevelInfo.FIELD_WIDTH - 1 ||
+        if (this.body[0].x > LevelInfo.FIELD_WIDTH - 1 || // Wals
             this.body[0].y > LevelInfo.FIELD_HEIGHT - 1 ||
             this.body[0].x < 0 ||
             this.body[0].y < 0) {
             return true;
         }
-        for (let i = 1; i < this.body.length; i++) {
+        for (let i = 1; i < this.body.length; i++) { // Body
             const pos = this.body[i];
             if (pos.compare(this.body[0])) {
                 return true;

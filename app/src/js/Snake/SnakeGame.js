@@ -2,10 +2,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { rgba } from "../Extensions.js";
 import { Game } from "../GameBehaviour.js";
+import { input } from "../Input.js";
 import { Snake } from "./Snake.js";
 import { Food } from "./Food.js";
 export class SnakeGame extends Game {
     entities = [];
+    restartPressed;
     loadContent() {
         const snake = new Snake();
         const food = new Food();
@@ -15,6 +17,7 @@ export class SnakeGame extends Game {
         this.entities.push(food);
     }
     initialize() {
+        this.restartPressed = false;
         for (let i = 0; i < this.entities.length; i++) {
             this.entities[i].initilize();
         }
@@ -23,6 +26,10 @@ export class SnakeGame extends Game {
         for (let i = 0; i < this.entities.length; i++) {
             this.entities[i].update(deltaTime);
         }
+        if (this.restartPressed && !input.restart) {
+            this.restart();
+        }
+        this.restartPressed = input.restart;
     }
     draw(ctx) {
         this.clear(ctx, rgba(0, 0, 0));
