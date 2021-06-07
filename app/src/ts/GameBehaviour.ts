@@ -1,27 +1,25 @@
-import { Rect } from "./LinearAlgebra.js";
+import { GameInfo } from "./GameInfo.js";
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 export abstract class Game {
 	protected readonly canvas: HTMLCanvasElement;
 	protected readonly context: CanvasRenderingContext2D;
-	protected readonly clientBounds: Rect;
-	
+
 	private previousTime!: number;
 
 	// initialization
-	constructor(canvas: HTMLCanvasElement, clientBounds: Rect) {
+	constructor(canvas: HTMLCanvasElement) {
 		this.canvas = canvas;
 		this.context = canvas?.getContext("2d") as CanvasRenderingContext2D;
 		if (!this.context) {
 			throw new Error("2d rendering is not supported.");
 		}
-		this.clientBounds = clientBounds;
 	}
 
 	// calculation
 	public build(): this {
-		this.canvas.width = this.clientBounds.width;
-		this.canvas.height = this.clientBounds.height;
+		this.canvas.width = GameInfo.CLIENT_WIDTH;
+		this.canvas.height = GameInfo.CLIENT_HEIGHT;
 		this.previousTime = 0;
 		return this;
 	}

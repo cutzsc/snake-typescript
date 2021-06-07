@@ -8,16 +8,16 @@ export class Vector2 {
 		this.y = y;
 	}
 
-	length(): number {
+	public length(): number {
 		return Math.sqrt(this.x * this.x + this.y * this.y);
 	}
 
-	add(other: Vector2): void {
+	public add(other: Vector2): void {
 		this.x = other.x;
 		this.y = other.y;
 	}
 
-	compare(other: Vector2): boolean {
+	public compare(other: Vector2): boolean {
 		return	this.x == other.x &&
 				this.y == other.y;
 	}
@@ -40,4 +40,9 @@ export class Rect {
 			this.width = width;
 			this.height = height;
 		}
+
+	public setPosition(other: Rect): void {
+		this.x = other.x;
+		this.y = other.y;
+	}
 }

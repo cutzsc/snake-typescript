@@ -29,4 +29,8 @@ export class Rect {
         this.width = width;
         this.height = height;
     }
+    setPosition(other) {
+        this.x = other.x;
+        this.y = other.y;
+    }
 }

@@ -1,22 +1,21 @@
+import { GameInfo } from "./GameInfo.js";
 /* eslint-disable @typescript-eslint/no-unused-vars */
 export class Game {
     canvas;
     context;
-    clientBounds;
     previousTime;
     // initialization
-    constructor(canvas, clientBounds) {
+    constructor(canvas) {
         this.canvas = canvas;
         this.context = canvas?.getContext("2d");
         if (!this.context) {
             throw new Error("2d rendering is not supported.");
         }
-        this.clientBounds = clientBounds;
     }
     // calculation
     build() {
-        this.canvas.width = this.clientBounds.width;
-        this.canvas.height = this.clientBounds.height;
+        this.canvas.width = GameInfo.CLIENT_WIDTH;
+        this.canvas.height = GameInfo.CLIENT_HEIGHT;
         this.previousTime = 0;
         return this;
     }
