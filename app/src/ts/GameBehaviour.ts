@@ -2,10 +2,10 @@ import { Rect } from "./LinearAlgebra.js";
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 export abstract class Game {
+	protected readonly canvas: HTMLCanvasElement;
+	protected readonly context: CanvasRenderingContext2D;
 	protected readonly clientBounds: Rect;
-
-	private readonly canvas: HTMLCanvasElement;
-	private readonly context: CanvasRenderingContext2D;
+	
 	private previousTime!: number;
 
 	// initialization
@@ -26,12 +26,14 @@ export abstract class Game {
 		return this;
 	}
 
+	// launch
 	public run(): this {
+		this.initialize();
 		requestAnimationFrame(this.loop.bind(this));
 		return this;
 	}
 
-	// game loop
+	// logic
 	private loop(timestamp: number): void {
 		const elapsedTime = timestamp - this.previousTime;
 		this.previousTime = timestamp;
@@ -46,9 +48,3 @@ export abstract class Game {
 	protected abstract update(deltaTime: number): void;
 	protected abstract draw(ctx: CanvasRenderingContext2D): void;
 }
-
-
-// const currentTime = Date.now();
-// const elapsedTime = currentTime - this.previousTime;
-// this.previousTime = currentTime;
-// this.lag += elapsedTime;

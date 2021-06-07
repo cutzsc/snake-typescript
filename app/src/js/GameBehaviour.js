@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 export class Game {
-    clientBounds;
     canvas;
     context;
+    clientBounds;
     previousTime;
     // initialization
     constructor(canvas, clientBounds) {
@@ -20,11 +20,13 @@ export class Game {
         this.previousTime = 0;
         return this;
     }
+    // launch
     run() {
+        this.initialize();
         requestAnimationFrame(this.loop.bind(this));
         return this;
     }
-    // game loop
+    // logic
     loop(timestamp) {
         const elapsedTime = timestamp - this.previousTime;
         this.previousTime = timestamp;
@@ -33,7 +35,3 @@ export class Game {
         requestAnimationFrame(this.loop.bind(this));
     }
 }
-// const currentTime = Date.now();
-// const elapsedTime = currentTime - this.previousTime;
-// this.previousTime = currentTime;
-// this.lag += elapsedTime;
