@@ -8,13 +8,18 @@ export class Vector2 {
 		this.y = y;
 	}
 
+	public set(other: Vector2): void {
+		this.x = other.x;
+		this.y = other.y;
+	}
+
 	public length(): number {
 		return Math.sqrt(this.x * this.x + this.y * this.y);
 	}
 
 	public add(other: Vector2): this {
-		this.x = other.x;
-		this.y = other.y;
+		this.x += other.x;
+		this.y += other.y;
 		return this;
 	}
 

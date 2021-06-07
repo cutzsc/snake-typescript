@@ -6,12 +6,16 @@ export class Vector2 {
         this.x = x;
         this.y = y;
     }
+    set(other) {
+        this.x = other.x;
+        this.y = other.y;
+    }
     length() {
         return Math.sqrt(this.x * this.x + this.y * this.y);
     }
     add(other) {
-        this.x = other.x;
-        this.y = other.y;
+        this.x += other.x;
+        this.y += other.y;
         return this;
     }
     scale(rate) {
