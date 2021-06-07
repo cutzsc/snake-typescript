@@ -46,19 +46,3 @@ export class Vector2 {
         return new Vector2(1, 0);
     }
 }
-export class Rect {
-    x;
-    y;
-    width;
-    height;
-    constructor(x, y, width, height) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-    }
-    setPosition(other) {
-        this.x = other.x;
-        this.y = other.y;
-    }
-}

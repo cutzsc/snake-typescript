@@ -1,5 +1,5 @@
 import { input } from "../Input.js";
-import { Rect, Vector2 } from "../LinearAlgebra.js";
+import { Vector2 } from "../LinearAlgebra.js";
 import { Entity } from "./Entity.js";
 import { Food } from "./Food.js";
 import { LevelInfo } from "./LevelInfo.js";

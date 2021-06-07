@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { Rect } from "../LinearAlgebra.js";
 import { rgba } from "../Extensions.js";
 import { Game } from "../GameBehaviour.js";
 import { input } from "../Input.js";
