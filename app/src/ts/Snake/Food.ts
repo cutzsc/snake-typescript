@@ -13,7 +13,7 @@ export class Food extends Entity {
 	}
 
 	public update(deltaTime: number): void {
-		// focking eslint
+		// anti annoying eslint
 		{deltaTime}
 	}
 
@@ -22,9 +22,13 @@ export class Food extends Entity {
 		ctx.fillRect(this.position.x * this.cellSize.x, this.position.y * this.cellSize.y, this.cellSize.x, this.cellSize.y);
 	}
 	
-	private nextPosition(): void {
+	public nextPosition(): void {
 		// TODO: res food where no snake
 		this.position.x = rangeInt(0, LevelInfo.FIELD_WIDTH - 1);
 		this.position.y = rangeInt(0, LevelInfo.FIELD_HEIGHT - 1);
+	}
+	
+	public getPosition(): Vector2 {
+		return this.position;
 	}
 }

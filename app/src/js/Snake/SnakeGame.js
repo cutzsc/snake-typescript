@@ -6,10 +6,15 @@ import { Snake } from "./Snake.js";
 import { Food } from "./Food.js";
 export class SnakeGame extends Game {
     entities = [];
+    loadContent() {
+        const snake = new Snake();
+        const food = new Food();
+        snake.restartCallback = this.restart.bind(this);
+        snake.food = food;
+        this.entities.push(snake);
+        this.entities.push(food);
+    }
     initialize() {
-        this.entities = [];
-        this.entities.push(new Snake());
-        this.entities.push(new Food());
         for (let i = 0; i < this.entities.length; i++) {
             this.entities[i].initilize();
         }
@@ -29,5 +34,8 @@ export class SnakeGame extends Game {
         ctx.fillStyle = color;
         ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+    restart() {
+        this.initialize();
     }
 }

@@ -10,7 +10,7 @@ export class Food extends Entity {
         this.nextPosition();
     }
     update(deltaTime) {
-        // focking eslint
+        // anti annoying eslint
         {
             deltaTime;
         }
@@ -23,5 +23,8 @@ export class Food extends Entity {
         // TODO: res food where no snake
         this.position.x = rangeInt(0, LevelInfo.FIELD_WIDTH - 1);
         this.position.y = rangeInt(0, LevelInfo.FIELD_HEIGHT - 1);
+    }
+    getPosition() {
+        return this.position;
     }
 }

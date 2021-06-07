@@ -21,6 +21,7 @@ export class Game {
     }
     // launch
     run() {
+        this.loadContent();
         this.initialize();
         requestAnimationFrame(this.loop.bind(this));
         return this;

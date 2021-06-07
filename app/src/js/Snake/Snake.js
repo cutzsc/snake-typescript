@@ -9,6 +9,8 @@ export class Snake extends Entity {
     snakeBodyPadding;
     direction;
     nextDirection;
+    food;
+    restartCallback;
     initilize() {
         this.elapsedSinceLastMove = 0;
         this.cellSize = LevelInfo.getCellSize();
@@ -21,9 +23,19 @@ export class Snake extends Entity {
         }
     }
     update(deltaTime) {
+        this.elapsedSinceLastMove += deltaTime;
         this.changeDirection(this.userInput());
-        this.move(deltaTime);
-        // TODO: check collision
+        if (this.elapsedSinceLastMove > LevelInfo.SNAKE_SPEED) {
+            this.elapsedSinceLastMove -= LevelInfo.SNAKE_SPEED;
+            this.move();
+            if (this.checkCollision()) {
+                this.restartCallback();
+            }
+            if (this.food.getPosition().compare(this.body[0])) {
+                this.food.nextPosition();
+                this.body.push(this.body[this.body.length - 1].clone());
+            }
+        }
     }
     draw(ctx) {
         ctx.fillStyle = LevelInfo.SNAKE_COLOR;
@@ -34,16 +46,12 @@ export class Snake extends Entity {
         ctx.closePath();
         ctx.fill();
     }
-    move(deltaTime) {
-        this.elapsedSinceLastMove += deltaTime;
-        if (this.elapsedSinceLastMove > LevelInfo.SNAKE_SPEED) {
-            this.direction = this.nextDirection;
-            this.elapsedSinceLastMove -= LevelInfo.SNAKE_SPEED;
-            for (let i = this.body.length - 1; i > 0; i--) {
-                this.body[i].set(this.body[i - 1]);
-            }
-            this.body[0].add(this.direction);
+    move() {
+        this.direction = this.nextDirection;
+        for (let i = this.body.length - 1; i > 0; i--) {
+            this.body[i].set(this.body[i - 1]);
         }
+        this.body[0].add(this.direction);
     }
     userInput() {
         if (input.up)
@@ -67,5 +75,20 @@ export class Snake extends Entity {
                 this.nextDirection = direction;
             }
         }
+    }
+    checkCollision() {
+        if (this.body[0].x > LevelInfo.FIELD_WIDTH - 1 ||
+            this.body[0].y > LevelInfo.FIELD_HEIGHT - 1 ||
+            this.body[0].x < 0 ||
+            this.body[0].y < 0) {
+            return true;
+        }
+        for (let i = 1; i < this.body.length; i++) {
+            const pos = this.body[i];
+            if (pos.compare(this.body[0])) {
+                return true;
+            }
+        }
+        return false;
     }
 }

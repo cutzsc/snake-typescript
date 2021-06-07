@@ -34,6 +34,10 @@ export class Vector2 {
 				this.y == other.y;
 	}
 
+	public clone(): Vector2 {
+		return new Vector2(this.x, this.y);
+	}
+
 	public static zero(): Vector2 {
 		return new Vector2(0, 0);
 	}

@@ -1,6 +1,7 @@
 import { input } from "../Input.js";
 import { Rect, Vector2 } from "../LinearAlgebra.js";
 import { Entity } from "./Entity.js";
+import { Food } from "./Food.js";
 import { LevelInfo } from "./LevelInfo.js";
 
 export class Snake extends Entity {
@@ -10,6 +11,9 @@ export class Snake extends Entity {
 	private snakeBodyPadding!: Vector2;
 	private direction!: Vector2;
 	private nextDirection!: Vector2;
+
+	public food!: Food;
+	public restartCallback!: () => void;
 	
 	public initilize(): void {
 		this.elapsedSinceLastMove = 0;
@@ -28,11 +32,20 @@ export class Snake extends Entity {
 	}
 
 	public update(deltaTime: number): void {
+		this.elapsedSinceLastMove += deltaTime;
 		this.changeDirection(this.userInput());
 
-		this.move(deltaTime);
-		
-		// TODO: check collision
+		if (this.elapsedSinceLastMove > LevelInfo.SNAKE_SPEED) {
+			this.elapsedSinceLastMove -= LevelInfo.SNAKE_SPEED;
+			this.move();
+			if (this.checkCollision()) {
+				this.restartCallback();
+			}
+			if (this.food.getPosition().compare(this.body[0])) {
+				this.food.nextPosition();
+				this.body.push(this.body[this.body.length - 1].clone());
+			}
+		}
 	}
 
 	public draw(ctx: CanvasRenderingContext2D): void {
@@ -49,16 +62,13 @@ export class Snake extends Entity {
 		ctx.fill();
 	}
 
-	private move(deltaTime: number): void {
-		this.elapsedSinceLastMove += deltaTime;
-		if (this.elapsedSinceLastMove > LevelInfo.SNAKE_SPEED) {
-			this.direction = this.nextDirection;
-			this.elapsedSinceLastMove -= LevelInfo.SNAKE_SPEED;
-			for (let i = this.body.length - 1; i > 0; i--) {
-				this.body[i].set(this.body[i - 1]);
-			}
-			this.body[0].add(this.direction);
+	private move(): void {
+		this.direction = this.nextDirection;
+		for (let i = this.body.length - 1; i > 0; i--) {
+			this.body[i].set(this.body[i - 1]);
 		}
+		this.body[0].add(this.direction);
+		
 	}
 
 	private userInput(): Vector2 {
@@ -80,5 +90,23 @@ export class Snake extends Entity {
 				this.nextDirection = direction;
 			}
 		}
+	}
+
+	private checkCollision(): boolean {
+		if (this.body[0].x > LevelInfo.FIELD_WIDTH - 1 ||
+			this.body[0].y > LevelInfo.FIELD_HEIGHT - 1 ||
+			this.body[0].x < 0 ||
+			this.body[0].y < 0) {
+			return true;
+		}
+		
+		for (let i = 1; i < this.body.length; i++) {
+			const pos = this.body[i];
+			if (pos.compare(this.body[0])) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 }

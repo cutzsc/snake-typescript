@@ -26,6 +26,7 @@ export abstract class Game {
 
 	// launch
 	public run(): this {
+		this.loadContent();
 		this.initialize();
 		requestAnimationFrame(this.loop.bind(this));
 		return this;
@@ -42,6 +43,7 @@ export abstract class Game {
 		requestAnimationFrame(this.loop.bind(this));
 	}
 
+	protected abstract loadContent(): void;
 	protected abstract initialize(): void;
 	protected abstract update(deltaTime: number): void;
 	protected abstract draw(ctx: CanvasRenderingContext2D): void;
