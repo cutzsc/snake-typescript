@@ -1,7 +1,7 @@
 import { input } from "../Input.js";
 import { Rect, Vector2 } from "../LinearAlgebra.js";
 import { Entity } from "./Entity.js";
-import { LevelInfo } from "./Level.js";
+import { LevelInfo } from "./LevelInfo.js";
 
 export class Snake extends Entity {
 	private body: Vector2[] = [];
@@ -42,8 +42,8 @@ export class Snake extends Entity {
 			ctx.rect(
 				this.body[i].x * this.cellSize.x + this.snakeBodyPadding.x,
 				this.body[i].y * this.cellSize.y + this.snakeBodyPadding.y,
-				this.cellSize.x - this.snakeBodyPadding.x,
-				this.cellSize.y - this.snakeBodyPadding.y);
+				this.cellSize.x - this.snakeBodyPadding.x * 2,
+				this.cellSize.y - this.snakeBodyPadding.y * 2);
 		}
 		ctx.closePath();
 		ctx.fill();

@@ -3,11 +3,13 @@
 import { rgba } from "../Extensions.js";
 import { Game } from "../GameBehaviour.js";
 import { Snake } from "./Snake.js";
+import { Food } from "./Food.js";
 export class SnakeGame extends Game {
     entities = [];
     initialize() {
         this.entities = [];
         this.entities.push(new Snake());
+        this.entities.push(new Food());
         for (let i = 0; i < this.entities.length; i++) {
             this.entities[i].initilize();
         }
