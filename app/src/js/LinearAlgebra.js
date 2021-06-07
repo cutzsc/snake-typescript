@@ -12,6 +12,12 @@ export class Vector2 {
     add(other) {
         this.x = other.x;
         this.y = other.y;
+        return this;
+    }
+    scale(rate) {
+        this.x *= rate;
+        this.y *= rate;
+        return this;
     }
     compare(other) {
         return this.x == other.x &&

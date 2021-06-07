@@ -4,28 +4,28 @@ import { LevelInfo } from "./Level.js";
 export class Snake extends Entity {
     body = [];
     elapsedSinceLastMove;
-    bodyCell;
+    cellSize;
+    snakeBodyPadding;
     initilize() {
         this.elapsedSinceLastMove = 0;
-        // TODO: setup body array
-        const cellSize = LevelInfo.getCellSize();
-        this.bodyCell = new Rect(Math.floor(LevelInfo.FIELD_WIDTH / 2) * cellSize.x, Math.floor(LevelInfo.FIELD_HEIGHT / 2) * cellSize.y, cellSize.x, cellSize.y);
+        this.cellSize = LevelInfo.getCellSize();
+        this.snakeBodyPadding = LevelInfo.getSnakeBodyPadding();
+        const bodyCell = new Rect(LevelInfo.FIELD_WIDTH / 2 * this.cellSize.x - this.cellSize.x / 2, LevelInfo.FIELD_HEIGHT / 2 * this.cellSize.y, this.cellSize.x, this.cellSize.y);
         this.body = [];
         for (let i = 0; i < LevelInfo.INITIAL_SNAKE_SIZE; i++) {
-            this.body.push(new Rect(this.bodyCell.x, this.bodyCell.y + i * this.bodyCell.height, this.bodyCell.width, this.bodyCell.height));
+            this.body.push(new Rect(bodyCell.x, bodyCell.y + i * bodyCell.height - bodyCell.height, bodyCell.width, bodyCell.height));
         }
     }
     update(deltaTime) {
         // TODO: input, change direction
         this.move(deltaTime);
-        // this.move(deltaTime);
         // TODO: check collision
     }
     draw(ctx) {
         ctx.fillStyle = LevelInfo.SNAKE_COLOR;
         ctx.beginPath();
         for (let i = 0; i < this.body.length; i++) {
-            ctx.rect(this.body[i].x + LevelInfo.SNAKE_BODY_PADDING, this.body[i].y + LevelInfo.SNAKE_BODY_PADDING, this.body[i].width - LevelInfo.SNAKE_BODY_PADDING, this.body[i].height - LevelInfo.SNAKE_BODY_PADDING);
+            ctx.rect(this.body[i].x + this.snakeBodyPadding.x, this.body[i].y + this.snakeBodyPadding.y, this.body[i].width - this.snakeBodyPadding.x, this.body[i].height - this.snakeBodyPadding.y);
         }
         ctx.closePath();
         ctx.fill();
@@ -37,7 +37,7 @@ export class Snake extends Entity {
             for (let i = this.body.length - 1; i > 0; i--) {
                 this.body[i].setPosition(this.body[i - 1]);
             }
-            this.body[0].y -= this.bodyCell.width;
+            this.body[0].y -= this.cellSize.x;
         }
     }
 }

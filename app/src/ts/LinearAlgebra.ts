@@ -12,9 +12,16 @@ export class Vector2 {
 		return Math.sqrt(this.x * this.x + this.y * this.y);
 	}
 
-	public add(other: Vector2): void {
+	public add(other: Vector2): this {
 		this.x = other.x;
 		this.y = other.y;
+		return this;
+	}
+
+	public scale(rate: number): this {
+		this.x *= rate;
+		this.y *= rate;
+		return this;
 	}
 
 	public compare(other: Vector2): boolean {

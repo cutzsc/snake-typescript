@@ -1,29 +1,29 @@
 import { Rect, Vector2 } from "../LinearAlgebra.js";
-import { rgba } from "../Extensions.js";
 import { Entity } from "./Entity.js";
 import { LevelInfo } from "./Level.js";
 
 export class Snake extends Entity {
 	private body: Array<Rect> = [];
 	private elapsedSinceLastMove!: number;
-	private bodyCell!: Rect;
+	private cellSize!: Vector2;
+	private snakeBodyPadding!: Vector2;
 	
 	public initilize(): void {
 		this.elapsedSinceLastMove = 0;
+		this.cellSize = LevelInfo.getCellSize();
+		this.snakeBodyPadding = LevelInfo.getSnakeBodyPadding();
 
-		// TODO: setup body array
-		const cellSize: Vector2 = LevelInfo.getCellSize();
-		this.bodyCell = new Rect(
-			Math.floor(LevelInfo.FIELD_WIDTH / 2) * cellSize.x,
-			Math.floor(LevelInfo.FIELD_HEIGHT / 2) * cellSize.y,
-			cellSize.x, cellSize.y);
+		const bodyCell: Rect = new Rect(
+			LevelInfo.FIELD_WIDTH / 2 * this.cellSize.x - this.cellSize.x / 2,
+			LevelInfo.FIELD_HEIGHT / 2 * this.cellSize.y,
+			this.cellSize.x, this.cellSize.y);
 			
 		this.body = [];
 		for (let i = 0; i < LevelInfo.INITIAL_SNAKE_SIZE; i++) {
 			this.body.push(new Rect(
-				this.bodyCell.x,
-				this.bodyCell.y + i * this.bodyCell.height,
-				this.bodyCell.width, this.bodyCell.height
+				bodyCell.x,
+				bodyCell.y + i * bodyCell.height - bodyCell.height,
+				bodyCell.width, bodyCell.height
 			));
 		}
 	}
@@ -32,7 +32,6 @@ export class Snake extends Entity {
 		// TODO: input, change direction
 
 		this.move(deltaTime);
-		// this.move(deltaTime);
 		
 		// TODO: check collision
 	}
@@ -42,10 +41,10 @@ export class Snake extends Entity {
 		ctx.beginPath();
 		for (let i = 0; i < this.body.length; i++) {
 			ctx.rect(
-				this.body[i].x + LevelInfo.SNAKE_BODY_PADDING,
-				this.body[i].y + LevelInfo.SNAKE_BODY_PADDING,
-				this.body[i].width - LevelInfo.SNAKE_BODY_PADDING,
-				this.body[i].height - LevelInfo.SNAKE_BODY_PADDING);
+				this.body[i].x + this.snakeBodyPadding.x,
+				this.body[i].y + this.snakeBodyPadding.y,
+				this.body[i].width - this.snakeBodyPadding.x,
+				this.body[i].height - this.snakeBodyPadding.y);
 		}
 		ctx.closePath();
 		ctx.fill();
@@ -58,7 +57,7 @@ export class Snake extends Entity {
 			for (let i = this.body.length - 1; i > 0; i--) {
 				this.body[i].setPosition(this.body[i - 1]);
 			}
-			this.body[0].y -= this.bodyCell.width;
+			this.body[0].y -= this.cellSize.x;
 		}
 	}
 }
