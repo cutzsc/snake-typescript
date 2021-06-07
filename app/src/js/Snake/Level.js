@@ -1,7 +1,7 @@
 import { GameInfo } from "../GameInfo.js";
 import { Vector2 } from "../LinearAlgebra.js";
 export const LevelInfo = {
-    SNAKE_SPEED: 500,
+    SNAKE_SPEED: 500 / 1000,
     FIELD_WIDTH: 30,
     FIELD_HEIGHT: 25,
     SNAKE_BODY_PADDING: 2,

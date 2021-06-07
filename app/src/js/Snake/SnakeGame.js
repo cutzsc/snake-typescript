@@ -6,6 +6,7 @@ import { Snake } from "./Snake.js";
 export class SnakeGame extends Game {
     entities = [];
     initialize() {
+        this.entities = [];
         this.entities.push(new Snake());
         for (let i = 0; i < this.entities.length; i++) {
             this.entities[i].initilize();
@@ -18,12 +19,6 @@ export class SnakeGame extends Game {
     }
     draw(ctx) {
         this.clear(ctx, rgba(0, 0, 0));
-        // draw entities
-        // ctx.fillStyle = rgba(255, 0, 255);
-        // ctx.beginPath();
-        // ctx.rect(this.head.x + 50, this.head.y + 50, this.head.width, this.head.height);
-        // ctx.closePath();
-        // ctx.fill();
         for (let i = 0; i < this.entities.length; i++) {
             this.entities[i].draw(ctx);
         }

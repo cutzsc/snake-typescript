@@ -22,7 +22,7 @@ export class Snake extends Entity {
 		for (let i = 0; i < LevelInfo.INITIAL_SNAKE_SIZE; i++) {
 			this.body.push(new Rect(
 				this.bodyCell.x,
-				this.bodyCell.y - i * this.bodyCell.height,
+				this.bodyCell.y + i * this.bodyCell.height,
 				this.bodyCell.width, this.bodyCell.height
 			));
 		}
@@ -31,7 +31,7 @@ export class Snake extends Entity {
 	public update(deltaTime: number): void {
 		// TODO: input, change direction
 
-		
+		this.move(deltaTime);
 		// this.move(deltaTime);
 		
 		// TODO: check collision
@@ -52,14 +52,13 @@ export class Snake extends Entity {
 	}
 
 	private move(deltaTime: number): void {
-		// TODO: move head
 		this.elapsedSinceLastMove += deltaTime;
 		if (this.elapsedSinceLastMove > LevelInfo.SNAKE_SPEED) {
 			this.elapsedSinceLastMove -= LevelInfo.SNAKE_SPEED;
-		
-			for (let i = 1; i < this.body.length; i++) {
+			for (let i = this.body.length - 1; i > 0; i--) {
 				this.body[i].setPosition(this.body[i - 1]);
 			}
+			this.body[0].y -= this.bodyCell.width;
 		}
 	}
 }

@@ -2,7 +2,7 @@ import { GameInfo } from "../GameInfo.js";
 import { Vector2 } from "../LinearAlgebra.js";
 
 export const LevelInfo = {
-	SNAKE_SPEED:			500, // 1 move per snakeSpeed (milliseconds)
+	SNAKE_SPEED:			500 / 1000, // 1 move per snakeSpeed (seconds)
 	FIELD_WIDTH:			30, // Number of cells in width
 	FIELD_HEIGHT:			25, // Number of cells in height
 	SNAKE_BODY_PADDING:		2, // Padding for body inside cell
